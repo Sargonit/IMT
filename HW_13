@@ -1,0 +1,25 @@
+var http = require('http');
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({ //открываем доступ к конкретному електронному адресу
+  service: 'gmail',//почтовый сервис с которого отправляем почту
+  auth: {
+    user: 'example@example.com', //адрес с которого отправляем почту
+    pass: 'password' //пароль к електронному ящику
+  }
+});
+
+var mailOptions = { //объект хранящий от кого кому отправляем
+  from: 'example@example.com', //от кого
+  to: 'example@example.com', //кому
+  subject: 'Sending Email using Node.js', 
+  text: 'Text of mail' //текст письма
+};
+
+transporter.sendMail(mailOptions, function(error, info){ //отправляем письмо
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
